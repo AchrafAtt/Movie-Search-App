@@ -1,0 +1,41 @@
+<nav class="navbar justify-between bg-base-300 px-4">
+  <!-- Logo -->
+  <a class="btn btn-ghost text-lg">
+    A2T
+  </a>
+
+  <!-- Menu for mobile -->
+  <div class="dropdown dropdown-end sm:hidden">
+    <!-- Burger Icon -->
+    <button class="btn btn-square btn-ghost">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        class="inline-block h-5 w-5 stroke-current">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Dropdown Menu -->
+     <!-- Dropdown Menu -->
+     <ul tabindex="0" class="dropdown-content menu z-[1] bg-base-200 p-2 rounded-box shadow w-52 mt-4">
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/about">About</a></li>
+      <li><a routerLink="/films">Films</a></li>
+      <li><a class="btn btn-sm btn-primary mt-2" routerLink="/login">Log in</a></li>
+    </ul>
+  </div>
+
+  <!-- Menu for desktop -->
+  <ul class="hidden sm:flex menu menu-horizontal gap-2">
+    <li><a routerLink="/">Home</a></li>
+    <li><a routerLink="/about">About</a></li>
+    <li><a routerLink="/films">Films</a></li>
+    <li><a class="btn btn-sm btn-primary" routerLink="/login">Log in</a></li>
+  </ul>
+</nav>

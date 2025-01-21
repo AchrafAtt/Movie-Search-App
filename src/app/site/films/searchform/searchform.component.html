@@ -1,0 +1,80 @@
+<div class="flex flex-col gap-4 rounded-box bg-base-200 p-6 min-h-screen w-full max-w-4xl mx-auto">
+  <form [formGroup]="myForm" (ngSubmit)="startSearch()" class="space-y-4">
+    <!-- Text Field -->
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">What is your name?</span>
+        <span class="label-text-alt">Required</span>
+      </div>
+      <input
+        type="text"
+        placeholder="Type your name here"
+        class="input input-bordered w-full max-w-xs"
+        formControlName="name"
+      />
+      <div class="label">
+        <span class="label-text-alt text-error" *ngIf="myForm.get('name')?.invalid && myForm.get('name')?.touched">
+          Name is required.
+        </span>
+      </div>
+    </label>
+
+    <!-- Number Field -->
+    <label class="form-control w-full max-w-xs">
+      <div class="label">
+        <span class="label-text">Enter a year between 1900 and 2017</span>
+        <span class="label-text-alt">Required</span>
+      </div>
+      <input
+        type="number"
+        placeholder="Type a year here"
+        class="input input-bordered w-full max-w-xs"
+        formControlName="year"
+      />
+      <div class="label">
+        <span class="label-text-alt text-error" *ngIf="myForm.get('year')?.invalid && myForm.get('year')?.touched">
+          Year must be between 1900 and 2017.
+        </span>
+      </div>
+    </label>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary block" [disabled]="myForm.invalid">Submit</button>
+  </form>
+
+  <div *ngIf="errorMessage" class="text-error mt-4">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Use the directive to display movie results -->
+  <div *appMovieResults="movies; let movie">
+    <div *ngIf="movie; else noResults" class="mt-4">
+      <h2>{{ movie.Title }} ({{ movie.Year }})</h2>
+      <p>{{ movie.Actors }}</p>
+
+      <div *ngIf="movie.Ratings && movie.Ratings.length > 0" class="mt-4">
+        <h3 class="text-lg font-bold mb-2">Ratings</h3>
+        <div class="space-y-4 max-md:space-y-0 max-md:flex max-md:flex-wrap max-md:gap-4">
+          <div *ngFor="let rating of movie.Ratings" class="bg-base-100 p-4 rounded-lg shadow-md">
+            <p class="font-semibold">{{ rating.Source }}</p>
+            <div class="rating">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                <input
+                  type="radio"
+                  name="rating-{{ rating.Source }}"
+                  class="mask mask-star-2 bg-orange-400"
+                  [checked]="star <= getStarRating(rating.Value)"
+                  disabled />
+              </ng-container>
+            </div>
+            <p>{{ rating.Value }}</p>
+          </div>
+        </div>
+      </div>
+      <img [src]="movie.Poster" alt="{{ movie.Title }} Poster" class="w-48 mt-4" />
+    </div>
+    <ng-template #noResults>
+      <p>No results found.</p>
+    </ng-template>
+  </div>
+</div>
